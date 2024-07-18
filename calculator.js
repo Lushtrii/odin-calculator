@@ -5,7 +5,5 @@ const subtract = (a, b) => a - b;
 
 const multiply = (a, b) => a * b;
 
-const divide = (a, b) => {
-    return -1;
-}
+const divide = (a, b) => b === 0 ? undefined : a / b;
 
