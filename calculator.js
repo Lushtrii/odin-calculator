@@ -28,5 +28,8 @@ const operate = (a, b, op) => {
                 console.log("You can't divide by 0...");
             }
             return result;
+        default:
+            console.log("ERROR: This should not be reached");
+            return null;
     }
 }
