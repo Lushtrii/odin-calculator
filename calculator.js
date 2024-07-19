@@ -14,20 +14,22 @@ const operate = (a, b, op) => {
         "*": 2,
         "/": 3,
     };
-
+    
+    let result = 0;
     switch (opCodes[op]) {
         case 0:
             return add(a, b);
         case 1:
             return subtract(a, b);
         case 2:
-            return multiply(a, b);
+            result = multiply(a, b);
+            return parseFloat(result.toFixed(8));
         case 3:
-            let result = divide(a, b);
+            result = divide(a, b);
             if (!result) {
                 console.log("You can't divide by 0...");
             }
-            return result;
+            return parseFloat(result.toFixed(8));
         default:
             console.log("ERROR: This should not be reached");
             return null;
