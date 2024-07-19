@@ -77,14 +77,33 @@ const updateCalcState = (calcState, input) => {
     }
 }
 
+const isInputValid = (calcState, input) => {
+
+    if (input === "Clear") return true;
+
+    if (calcState.hasOwnProperty("answer")) return false;
+
+    if (input === "=" && !calcState.hasOwnProperty("secondNum")) {
+        return false;
+    }
+    // Check if operator is already set and not equals
+    if (calcState.hasOwnProperty("op") && isNaN(input) && input !== "=" )
+       return false; 
+
+    return true;
+}
+
 const addCalcListeners = () => {
     const calcState = {};
     const keys = [...document.querySelectorAll(".number-key"), ...document.querySelectorAll(".op-key")];
     for (let key of keys) {
         key.addEventListener("click", e => {
-            let target = e.target;
-            updateCalcState(calcState, target.textContent);
-            displayCalcState(calcState);
+            const target = e.target;
+            const input = target.textContent;
+            if (isInputValid(calcState, input)) {
+                updateCalcState(calcState, input); 
+                displayCalcState(calcState);
+            }
         })
     }
 }
