@@ -37,16 +37,16 @@ const operate = (a, b, op) => {
 const displayCalcState = (calcState) => {
     let displayString = "";
 
-    if (calcState.firstNum) {
+    if (Object.hasOwn(calcState, "firstNum")) {
         displayString += `${calcState.firstNum}`;
     }
-    if (calcState.op) {
+    if (Object.hasOwn(calcState, "op")) {
         displayString += ` ${calcState.op}`;
     }
-    if (calcState.secondNum) {
+    if (Object.hasOwn(calcState, "secondNum")) {
         displayString += ` ${calcState.secondNum}`;
     }
-    if (calcState.answer) {
+    if (Object.hasOwn(calcState, "answer")) {
         displayString += ` = ${calcState.answer}`;
     }
     
@@ -64,7 +64,7 @@ const updateCalcState = (calcState, input) => {
         let answer = operate(Number(calcState.firstNum), Number(calcState.secondNum), calcState.op);
         calcState.answer = answer;
     }
-    else if (calcState.op) {
+    else if (Object.hasOwn(calcState, "op")) {
         calcState.secondNum = calcState.secondNum ? `${calcState.secondNum}${input}` : `${input}`;
     }
     else {
@@ -81,14 +81,11 @@ const isInputValid = (calcState, input) => {
 
     if (input === "Clear") return true;
 
-    if (calcState.hasOwnProperty("answer")) return false;
+    if (Object.hasOwn(calcState, "answer")) return false;
 
-    if (input === "=" && !calcState.hasOwnProperty("secondNum")) {
+    if (input === "=" && !Object.hasOwn(calcState, "secondNum")) {
         return false;
     }
-    // Check if operator is already set and not equals
-    if (calcState.hasOwnProperty("op") && isNaN(input) && input !== "=" )
-       return false; 
 
     return true;
 }
