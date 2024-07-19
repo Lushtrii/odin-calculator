@@ -47,9 +47,10 @@ const displayCalcState = (calcState) => {
         displayString += ` ${calcState.secondNum}`;
     }
     if (calcState.answer) {
-        displayString += ` = ${calcState.answer}}`
+        displayString += ` = ${calcState.answer}`;
     }
     
     const resultDisplay = document.querySelector("#result-text");
     resultDisplay.textContent = displayString;
 }
+
