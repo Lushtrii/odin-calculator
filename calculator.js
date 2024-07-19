@@ -97,6 +97,10 @@ const isInputValid = (calcState, input) => {
 
     if (Object.hasOwn(calcState, "answer")) return false;
 
+    if (!Object.hasOwn(calcState, "firstNum") && isNaN(input)) {
+        return false;
+    }
+
     if (input === "=" && !Object.hasOwn(calcState, "secondNum")) {
         return false;
     }
