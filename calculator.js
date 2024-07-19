@@ -33,3 +33,23 @@ const operate = (a, b, op) => {
             return null;
     }
 }
+
+const displayCalcState = (calcState) => {
+    let displayString = "";
+
+    if (calcState.firstNum) {
+        displayString += `${calcState.firstNum}`;
+    }
+    if (calcState.op) {
+        displayString += ` ${calcState.op}`;
+    }
+    if (calcState.secondNum) {
+        displayString += ` ${calcState.secondNum}`;
+    }
+    if (calcState.answer) {
+        displayString += ` = ${calcState.answer}}`
+    }
+    
+    const resultDisplay = document.querySelector("#result-text");
+    resultDisplay.textContent = displayString;
+}
