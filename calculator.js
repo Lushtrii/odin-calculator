@@ -54,3 +54,20 @@ const displayCalcState = (calcState) => {
     resultDisplay.textContent = displayString;
 }
 
+const updateCalcState = (calcState, input) => {
+    if (input === "=") {
+        let answer = operate(Number(calcState.firstNum), Number(calcState.secondNum), calcState.op);
+        calcState.answer = answer;
+    }
+    else if (calcState.op) {
+        calcState.secondNum = calcState.secondNum ? `${calcState.secondNum}${input}` : `${input}`;
+    }
+    else {
+        if (typeof input === "string") {
+            calcState.op = input;
+        }
+        else {
+            calcState.firstNum = calcState.firstNum ? `${calcState.firstNum}${input}` : `${input}`;
+        }
+    }
+}
