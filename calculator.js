@@ -68,7 +68,7 @@ const updateCalcState = (calcState, input) => {
         calcState.secondNum = calcState.secondNum ? `${calcState.secondNum}${input}` : `${input}`;
     }
     else {
-        if (typeof input === "string") {
+        if (isNaN(input)) {
             calcState.op = input;
         }
         else {
@@ -79,5 +79,14 @@ const updateCalcState = (calcState, input) => {
 
 const addCalcListeners = () => {
     const calcState = {};
-    const numKeys = document.querySelectorAll()
+    const keys = [...document.querySelectorAll(".number-key"), ...document.querySelectorAll(".op-key")];
+    for (let key of keys) {
+        key.addEventListener("click", e => {
+            let target = e.target;
+            updateCalcState(calcState, target.textContent);
+            displayCalcState(calcState);
+        })
+    }
 }
+
+addCalcListeners();
