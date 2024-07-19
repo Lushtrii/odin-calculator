@@ -55,6 +55,7 @@ const displayCalcState = (calcState) => {
 }
 
 const updateCalcState = (calcState, input) => {
+    const ops = ["+", "-", "*", "/"];
     if (input === "Clear") {
         for (let key in calcState) {
             delete calcState[key];
@@ -63,6 +64,11 @@ const updateCalcState = (calcState, input) => {
     else if (input === "=") {
         let answer = operate(Number(calcState.firstNum), Number(calcState.secondNum), calcState.op);
         calcState.answer = answer;
+    }
+    else if (Object.hasOwn(calcState, "secondNum") && ops.includes(input)) {
+        calcState.firstNum = operate(Number(calcState.firstNum), Number(calcState.secondNum), calcState.op);
+        calcState.op = input;
+        delete calcState.secondNum;
     }
     else if (Object.hasOwn(calcState, "op")) {
         calcState.secondNum = calcState.secondNum ? `${calcState.secondNum}${input}` : `${input}`;
