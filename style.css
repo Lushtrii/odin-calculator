@@ -55,6 +55,8 @@ body {
 .op-key {
     padding: 20px;
     background-color: #099cf7;
+    border: none;
+    outline: 1px solid black;
 }
 
 #result {
