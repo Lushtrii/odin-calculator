@@ -28,6 +28,7 @@ const operate = (a, b, op) => {
             result = divide(a, b);
             if (!result) {
                 console.log("You can't divide by 0...");
+                return null;
             }
             return parseFloat(result.toFixed(8));
         default:
@@ -39,17 +40,22 @@ const operate = (a, b, op) => {
 const displayCalcState = (calcState) => {
     let displayString = "";
 
-    if (Object.hasOwn(calcState, "firstNum")) {
-        displayString += `${calcState.firstNum}`;
+    if (Object.hasOwn(calcState, "answer") && !(calcState.answer)) {
+        displayString = "Nice try. You can't divide by 0."
     }
-    if (Object.hasOwn(calcState, "op")) {
-        displayString += ` ${calcState.op}`;
-    }
-    if (Object.hasOwn(calcState, "secondNum")) {
-        displayString += ` ${calcState.secondNum}`;
-    }
-    if (Object.hasOwn(calcState, "answer")) {
-        displayString += ` = ${calcState.answer}`;
+    else {
+        if (Object.hasOwn(calcState, "firstNum")) {
+            displayString += `${calcState.firstNum}`;
+        }
+        if (Object.hasOwn(calcState, "op")) {
+            displayString += ` ${calcState.op}`;
+        }
+        if (Object.hasOwn(calcState, "secondNum")) {
+            displayString += ` ${calcState.secondNum}`;
+        }
+        if (Object.hasOwn(calcState, "answer")) {
+            displayString += ` = ${calcState.answer}`;
+        }
     }
     
     const resultDisplay = document.querySelector("#result-text");
