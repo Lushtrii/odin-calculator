@@ -55,7 +55,12 @@ const displayCalcState = (calcState) => {
 }
 
 const updateCalcState = (calcState, input) => {
-    if (input === "=") {
+    if (input === "Clear") {
+        for (let key in calcState) {
+            delete calcState[key];
+        }
+    }
+    else if (input === "=") {
         let answer = operate(Number(calcState.firstNum), Number(calcState.secondNum), calcState.op);
         calcState.answer = answer;
     }
@@ -70,4 +75,9 @@ const updateCalcState = (calcState, input) => {
             calcState.firstNum = calcState.firstNum ? `${calcState.firstNum}${input}` : `${input}`;
         }
     }
+}
+
+const addCalcListeners = () => {
+    const calcState = {};
+    const numKeys = document.querySelectorAll()
 }
