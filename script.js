@@ -59,10 +59,34 @@ function handleNumButtonClick(e, calculatorState) {
 function handleOperatorButtonClick(e, calculatorState) {
   const operatorButtonVal = e.target.getAttribute("data-val");
   if (!operatorButtonVal) return;
-  if (operatorButtonVal === "clear") {
-    clearCalculatorState(calculatorState);
-  } else {
-    calculatorState.operator = operatorButtonVal;
+  switch (operatorButtonVal) {
+    case "clear":
+      clearCalculatorState(calculatorState);
+      break;
+    case "+":
+    case "-":
+    case "*":
+    case "/":
+      if (calculatorState.operand2 !== "") {
+        calculatorState.operand1 = operate(
+          calculatorState.operator,
+          +calculatorState.operand1,
+          +calculatorState.operand2,
+        ).toString();
+        calculatorState.operator = operatorButtonVal;
+        calculatorState.operand2 = "";
+      } else {
+        calculatorState.operator = operatorButtonVal;
+      }
+      break;
+    case "=":
+      calculatorState.operand1 = operate(
+        calculatorState.operator,
+        +calculatorState.operand1,
+        +calculatorState.operand2,
+      ).toString();
+      calculatorState.operator = "";
+      calculatorState.operand2 = "";
   }
   updateDisplay(calculatorState);
 }
