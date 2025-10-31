@@ -38,25 +38,31 @@ function operate(operator, operand1, operand2) {
   }
 }
 
-function main() {
-  const display = document.querySelector("#display");
-  const numberContainer = document.querySelector("#numbers");
-  numberContainer.addEventListener("click", (e) => {
-    const buttonVal = e.target.getAttribute("data-val");
-    if (!buttonVal) return;
+function handleNumButtonClick(e) {
+  const numButtonVal = e.target.getAttribute("data-val");
+  if (!numButtonVal) return;
 
-    if (display.textContent === "0") {
-      display.textContent = buttonVal;
-    } else {
-      display.textContent += buttonVal;
-    }
-  });
+  const display = document.querySelector("#display");
+  if (display.textContent === "0") {
+    display.textContent = numButtonVal;
+  } else {
+    display.textContent += numButtonVal;
+  }
+}
+
+function handleOperatorButtonClick(e) {
+  const operatorButtonVal = e.target.getAttribute("data-val");
+  if (!operatorButtonVal) return;
+  display.textContent += operatorButtonVal;
+}
+
+function main() {
+  const numberContainer = document.querySelector("#numbers");
+  numberContainer.addEventListener("click", (e) => handleNumButtonClick(e));
   const operatorContainer = document.querySelector("#operators");
-  operatorContainer.addEventListener("click", (e) => {
-    const buttonVal = e.target.getAttribute("data-val");
-    if (!buttonVal) return;
-    display.textContent += buttonVal;
-  });
+  operatorContainer.addEventListener("click", (e) =>
+    handleOperatorButtonClick(e),
+  );
 }
 
 main();
