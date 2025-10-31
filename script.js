@@ -51,6 +51,12 @@ function main() {
       display.textContent += buttonVal;
     }
   });
+  const operatorContainer = document.querySelector("#operators");
+  operatorContainer.addEventListener("click", (e) => {
+    const buttonVal = e.target.getAttribute("data-val");
+    if (!buttonVal) return;
+    display.textContent += buttonVal;
+  });
 }
 
 main();
