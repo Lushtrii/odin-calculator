@@ -38,30 +38,55 @@ function operate(operator, operand1, operand2) {
   }
 }
 
-function handleNumButtonClick(e) {
+function handleNumButtonClick(e, calculatorState) {
   const numButtonVal = e.target.getAttribute("data-val");
   if (!numButtonVal) return;
 
-  const display = document.querySelector("#display");
-  if (display.textContent === "0") {
-    display.textContent = numButtonVal;
+  if (calculatorState.operator === "") {
+    calculatorState.operand1 =
+      calculatorState.operand1 === "0"
+        ? numButtonVal
+        : calculatorState.operand1 + numButtonVal;
   } else {
-    display.textContent += numButtonVal;
+    calculatorState.operand2 =
+      calculatorState.operand2 === "0"
+        ? numButtonVal
+        : calculatorState.operand2 + numButtonVal;
+  }
+  updateDisplay(calculatorState);
+}
+
+function handleOperatorButtonClick(e, calculatorState) {
+  const operatorButtonVal = e.target.getAttribute("data-val");
+  if (!operatorButtonVal) return;
+  calculatorState.operator = operatorButtonVal;
+  updateDisplay(calculatorState);
+}
+
+function updateDisplay(calculatorState) {
+  const display = document.querySelector("#display");
+  display.textContent = calculatorState.operand1;
+  if (calculatorState.operator) {
+    display.textContent += ` ${calculatorState.operator}`;
+  }
+  if (calculatorState.operand2) {
+    display.textContent += ` ${calculatorState.operand2}`;
   }
 }
 
-function handleOperatorButtonClick(e) {
-  const operatorButtonVal = e.target.getAttribute("data-val");
-  if (!operatorButtonVal) return;
-  display.textContent += operatorButtonVal;
-}
-
 function main() {
+  const calculatorState = {
+    operand1: "",
+    operand2: "",
+    operator: "",
+  };
   const numberContainer = document.querySelector("#numbers");
-  numberContainer.addEventListener("click", (e) => handleNumButtonClick(e));
+  numberContainer.addEventListener("click", (e) =>
+    handleNumButtonClick(e, calculatorState),
+  );
   const operatorContainer = document.querySelector("#operators");
   operatorContainer.addEventListener("click", (e) =>
-    handleOperatorButtonClick(e),
+    handleOperatorButtonClick(e, calculatorState),
   );
 }
 
