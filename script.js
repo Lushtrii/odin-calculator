@@ -37,3 +37,20 @@ function operate(operator, operand1, operand2) {
       throw new Error("Unrecognized operation");
   }
 }
+
+function main() {
+  const display = document.querySelector("#display");
+  const numberContainer = document.querySelector("#numbers");
+  numberContainer.addEventListener("click", (e) => {
+    const buttonVal = e.target.getAttribute("data-val");
+    if (!buttonVal) return;
+
+    if (display.textContent === "0") {
+      display.textContent = buttonVal;
+    } else {
+      display.textContent += buttonVal;
+    }
+  });
+}
+
+main();
